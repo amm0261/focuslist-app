@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   
     function renderTasks() {
+        taskList.innerHTML = '';
         tasks.forEach((task, index) => {
           const item = document.createElement('div');
           item.className = 'list-group-item d-flex justify-content-between align-items-center';
