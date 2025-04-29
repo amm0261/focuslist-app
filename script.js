@@ -11,14 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   
     function renderTasks() {
-        taskText.innerHTML = `
-        <strong>${task.text}</strong><br/>
-        <small class="text-muted">
-            ${task.category ? `Category: ${task.category} | ` : ''}
-            ${task.priority ? `Priority: ${task.priority} | ` : ''}
-            ${task.dueDate ? `Due: ${task.dueDate}` : ''}
-        </small>
-        `;
         tasks.forEach((task, index) => {
           const item = document.createElement('div');
           item.className = 'list-group-item d-flex justify-content-between align-items-center';
@@ -26,7 +18,15 @@ document.addEventListener('DOMContentLoaded', () => {
           const taskText = document.createElement('span');
           taskText.className = 'task-text';
           if (task.completed) taskText.classList.add('completed');
-          taskText.textContent = task.text;
+          taskText.innerHTML = `
+            <strong>${task.text}</strong><br/>
+            <small class="text-muted">
+              ${task.category ? `Category: ${task.category} | ` : ''}
+              ${task.priority ? `Priority: ${task.priority} | ` : ''}
+              ${task.dueDate ? `Due: ${task.dueDate}` : ''}
+              ${task.dueTime ? `at ${task.dueTime}` : ''}
+            </small>
+          `;
       
           const buttons = document.createElement('div');
           buttons.className = 'd-flex gap-2';
@@ -47,12 +47,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const category = document.getElementById('category-input').value;
         const priority = document.getElementById('priority-input').value;
         const dueDate = document.getElementById('due-date-input').value;
+        const dueTime = document.getElementById('due-time-input')?.value || '';
         if (text) {
         tasks.push({
             text,
             category,
             priority,
             dueDate,
+            dueTime,
             completed: false
         });
         saveTasks();
