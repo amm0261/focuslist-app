@@ -11,27 +11,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   
     function renderTasks() {
-      taskList.innerHTML = '';
-      tasks.forEach((task, index) => {
-        const item = document.createElement('div');
-        item.className = 'list-group-item list-group-item-action';
-  
-        const taskText = document.createElement('span');
-        taskText.className = 'task-text';
-        if (task.completed) taskText.classList.add('completed');
-        taskText.textContent = task.text;
-  
-        const buttons = document.createElement('div');
-        buttons.innerHTML = `
-          <button class="btn btn-sm btn-success me-2" onclick="toggleTask(${index})">✓</button>
-          <button class="btn btn-sm btn-danger" onclick="deleteTask(${index})">✕</button>
-        `;
-  
-        item.appendChild(taskText);
-        item.appendChild(buttons);
-        taskList.appendChild(item);
-      });
-    }
+        taskList.innerHTML = '';
+        tasks.forEach((task, index) => {
+          const item = document.createElement('div');
+          item.className = 'list-group-item d-flex justify-content-between align-items-center';
+      
+          const taskText = document.createElement('span');
+          taskText.className = 'task-text';
+          if (task.completed) taskText.classList.add('completed');
+          taskText.textContent = task.text;
+      
+          const buttons = document.createElement('div');
+          buttons.className = 'd-flex gap-2';
+          buttons.innerHTML = `
+            <button class="btn btn-sm btn-success" onclick="toggleTask(${index})">✓</button>
+            <button class="btn btn-sm btn-danger" onclick="deleteTask(${index})">✕</button>
+          `;
+      
+          item.appendChild(taskText);
+          item.appendChild(buttons);
+          taskList.appendChild(item);
+        });
+      }
   
     form.addEventListener('submit', (e) => {
       e.preventDefault();
