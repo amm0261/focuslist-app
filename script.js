@@ -13,58 +13,65 @@ document.addEventListener('DOMContentLoaded', () => {
   
     function renderTasks() {
       taskList.innerHTML = '';
-      tasks
-        .filter(task => {
-          if (currentFilter === 'active') return !task.completed;
-          if (currentFilter === 'completed') return task.completed;
-          return true;
-        })
-        .forEach((task, index) => {
-          const item = document.createElement('div');
-          item.className = 'list-group-item d-flex justify-content-between align-items-center';
-      
-          const taskText = document.createElement('span');
-          taskText.className = 'task-text';
-          if (task.completed) taskText.classList.add('completed');
-          taskText.innerHTML = `
-            <strong>${task.text}</strong><br/>
-            <small class="text-muted">
-              ${task.category ? `Category: ${task.category} | ` : ''}
-              ${task.priority ? `Priority: ${task.priority} | ` : ''}
-              ${task.dueDate ? `Due: ${task.dueDate}` : ''}
-              ${task.dueTime ? `at ${task.dueTime}` : ''}
-            </small>
-          `;
-      
-          const buttons = document.createElement('div');
-          buttons.className = 'd-flex gap-2';
 
-          const completeBtn = document.createElement('button');
-          completeBtn.className = 'btn btn-sm btn-success';
-          completeBtn.textContent = '✓';
-          completeBtn.addEventListener('click', () => {
-            tasks[index].completed = !tasks[index].completed;
+      const filteredTasks = tasks.filter(task => {
+        if (currentFilter === 'active') return !task.completed;
+        if (currentFilter === 'completed') return task.completed;
+        return true;
+      });
+
+      filteredTasks.forEach((task) => {
+        const item = document.createElement('div');
+        item.className = 'list-group-item d-flex justify-content-between align-items-center';
+
+        const taskText = document.createElement('span');
+        taskText.className = 'task-text';
+        if (task.completed) taskText.classList.add('completed');
+        taskText.innerHTML = `
+          <strong>${task.text}</strong><br/>
+          <small class="text-muted">
+            ${task.category ? `Category: ${task.category} | ` : ''}
+            ${task.priority ? `Priority: ${task.priority} | ` : ''}
+            ${task.dueDate ? `Due: ${task.dueDate}` : ''}
+            ${task.dueTime ? `at ${task.dueTime}` : ''}
+          </small>
+        `;
+
+        const buttons = document.createElement('div');
+        buttons.className = 'd-flex gap-2';
+
+        const completeBtn = document.createElement('button');
+        completeBtn.className = 'btn btn-sm btn-success';
+        completeBtn.textContent = '✓';
+        completeBtn.addEventListener('click', () => {
+          const realIndex = tasks.findIndex(t => t.text === task.text && t.dueDate === task.dueDate && t.category === task.category);
+          if (realIndex > -1) {
+            tasks[realIndex].completed = !tasks[realIndex].completed;
             saveTasks();
             renderTasks();
-          });
-
-          const deleteBtn = document.createElement('button');
-          deleteBtn.className = 'btn btn-sm btn-danger';
-          deleteBtn.textContent = '✕';
-          deleteBtn.addEventListener('click', () => {
-            tasks.splice(index, 1);
-            saveTasks();
-            renderTasks();
-          });
-
-          buttons.appendChild(completeBtn);
-          buttons.appendChild(deleteBtn);
-      
-          item.appendChild(taskText);
-          item.appendChild(buttons);
-          taskList.appendChild(item);
+          }
         });
-      }
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'btn btn-sm btn-danger';
+        deleteBtn.textContent = '✕';
+        deleteBtn.addEventListener('click', () => {
+          const realIndex = tasks.findIndex(t => t.text === task.text && t.dueDate === task.dueDate && t.category === task.category);
+          if (realIndex > -1) {
+            tasks.splice(realIndex, 1);
+            saveTasks();
+            renderTasks();
+          }
+        });
+
+        buttons.appendChild(completeBtn);
+        buttons.appendChild(deleteBtn);
+
+        item.appendChild(taskText);
+        item.appendChild(buttons);
+        taskList.appendChild(item);
+      });
+    }
   
     form.addEventListener('submit', (e) => {
       e.preventDefault();
