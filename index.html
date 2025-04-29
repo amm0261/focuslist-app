@@ -1,4 +1,3 @@
-<!-- This is the HTML structure for the FocusList application. It includes a form for adding tasks, a filter for viewing tasks, and a list to display the tasks. The Bootstrap framework is used for styling. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,10 +12,12 @@
     <h1 class="text-center mb-4">FocusList</h1>
     <form id="task-form" class="row g-2">
         <div class="col-12">
-          <input type="text" id="task-input" class="form-control" placeholder="Enter a new task" required />
+          <label for="task-input" class="form-label">Task</label>
+          <input type="text" id="task-input" class="form-control" required />
         </div>
       
         <div class="col-md-6">
+          <label for="category-input" class="form-label">Category</label>
           <input list="category-options" id="category-input" class="form-control" placeholder="Select or type a category">
           <datalist id="category-options">
             <option value="School">
@@ -26,6 +27,7 @@
         </div>
       
         <div class="col-md-6">
+          <label for="priority-input" class="form-label">Priority</label>
           <select id="priority-input" class="form-select">
             <option value="">Select Priority</option>
             <option value="High">High</option>
@@ -35,9 +37,11 @@
         </div>
       
         <div class="col-md-6">
+          <label for="due-date-input" class="form-label">Due Date</label>
           <input type="date" id="due-date-input" class="form-control" />
         </div>
         <div class="col-md-6">
+          <label for="due-time-input" class="form-label">Due Time</label>
           <input type="time" id="due-time-input" class="form-control" />
         </div>
       
@@ -54,7 +58,7 @@
       <button class="btn btn-outline-primary" data-filter="completed">Completed</button>
     </div>
 
-    <div id="task-list" class="list-group mt-3"></div>
+    <div id="task-list" class="list-group mt-3" aria-live="polite"></div>
   </div>
 
   <script src="script.js"></script>
