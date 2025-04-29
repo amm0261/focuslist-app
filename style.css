@@ -1,0 +1,25 @@
+/* style.css */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#task-list .list-group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+}
+
+#task-list .list-group-item.completed {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+/* Mobile tweaks */
+@media (max-width: 576px) {
+  #task-form .col-8,
+  #task-form .col-4 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
