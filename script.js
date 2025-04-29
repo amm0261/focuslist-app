@@ -5,14 +5,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const taskList = document.getElementById('task-list');
   
     let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    let currentFilter = 'all';
   
     function saveTasks() {
       localStorage.setItem('tasks', JSON.stringify(tasks));
     }
   
     function renderTasks() {
-        taskList.innerHTML = '';
-        tasks.forEach((task, index) => {
+      taskList.innerHTML = '';
+      tasks
+        .filter(task => {
+          if (currentFilter === 'active') return !task.completed;
+          if (currentFilter === 'completed') return task.completed;
+          return true;
+        })
+        .forEach((task, index) => {
           const item = document.createElement('div');
           item.className = 'list-group-item d-flex justify-content-between align-items-center';
       
@@ -83,4 +90,15 @@ document.addEventListener('DOMContentLoaded', () => {
   
   
     renderTasks();
+
+    document.getElementById('filter-buttons').addEventListener('click', (e) => {
+      if (e.target.matches('button[data-filter]')) {
+        currentFilter = e.target.dataset.filter;
+        document.querySelectorAll('#filter-buttons button').forEach(btn =>
+          btn.classList.remove('active')
+        );
+        e.target.classList.add('active');
+        renderTasks();
+      }
+    });
   });
