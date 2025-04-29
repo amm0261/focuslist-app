@@ -30,10 +30,27 @@ document.addEventListener('DOMContentLoaded', () => {
       
           const buttons = document.createElement('div');
           buttons.className = 'd-flex gap-2';
-          buttons.innerHTML = `
-            <button class="btn btn-sm btn-success" onclick="toggleTask(${index})">✓</button>
-            <button class="btn btn-sm btn-danger" onclick="deleteTask(${index})">✕</button>
-          `;
+
+          const completeBtn = document.createElement('button');
+          completeBtn.className = 'btn btn-sm btn-success';
+          completeBtn.textContent = '✓';
+          completeBtn.addEventListener('click', () => {
+            tasks[index].completed = !tasks[index].completed;
+            saveTasks();
+            renderTasks();
+          });
+
+          const deleteBtn = document.createElement('button');
+          deleteBtn.className = 'btn btn-sm btn-danger';
+          deleteBtn.textContent = '✕';
+          deleteBtn.addEventListener('click', () => {
+            tasks.splice(index, 1);
+            saveTasks();
+            renderTasks();
+          });
+
+          buttons.appendChild(completeBtn);
+          buttons.appendChild(deleteBtn);
       
           item.appendChild(taskText);
           item.appendChild(buttons);
