@@ -76,11 +76,11 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const text = taskInput.value.trim();
-        const category = document.getElementById('category-input').value;
-        const priority = document.getElementById('priority-input').value;
-        const dueDate = document.getElementById('due-date-input').value;
-        const dueTime = document.getElementById('due-time-input')?.value || '';
-        if (text) {
+      const category = document.getElementById('category-input').value;
+      const priority = document.getElementById('priority-input').value;
+      const dueDate = document.getElementById('due-date-input').value;
+      const dueTime = document.getElementById('due-time-input')?.value || '';
+      if (text) {
         tasks.push({
             text,
             category,
@@ -91,6 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         saveTasks();
         renderTasks();
+
         const categoryInput = document.getElementById('category-input');
         const categoryList = document.getElementById('category-options');
         const existingCategories = Array.from(categoryList.options).map(opt => opt.value);
@@ -100,7 +101,14 @@ document.addEventListener('DOMContentLoaded', () => {
           newOption.value = category;
           categoryList.appendChild(newOption);
         }
+
         taskInput.value = '';
+        categoryInput.value = '';
+        document.getElementById('priority-input').value = '';
+        document.getElementById('due-date-input').value = '';
+        if (document.getElementById('due-time-input')) {
+          document.getElementById('due-time-input').value = '';
+        }
       }
     });
   
