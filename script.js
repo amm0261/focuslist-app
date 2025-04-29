@@ -76,23 +76,13 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const text = taskInput.value.trim();
-      const category = document.getElementById('category-input').value;
-      const priority = document.getElementById('priority-input').value;
+      const categoryInput = document.getElementById('category-input');
+      const priorityInput = document.getElementById('priority-input');
+      const category = categoryInput.value;
+      const priority = priorityInput.value;
       const dueDate = document.getElementById('due-date-input').value;
       const dueTime = document.getElementById('due-time-input')?.value || '';
       if (text) {
-        tasks.push({
-            text,
-            category,
-            priority,
-            dueDate,
-            dueTime,
-            completed: false
-        });
-        saveTasks();
-        renderTasks();
-
-        const categoryInput = document.getElementById('category-input');
         const categoryList = document.getElementById('category-options');
         const existingCategories = Array.from(categoryList.options).map(opt => opt.value);
 
@@ -102,8 +92,20 @@ document.addEventListener('DOMContentLoaded', () => {
           categoryList.appendChild(newOption);
         }
 
+        tasks.push({
+            text,
+            category,
+            priority,
+            dueDate,
+            dueTime,
+            completed: false
+        });
+
+        saveTasks();
+        renderTasks();
+
         taskInput.value = '';
-        categoryInput.value = '';
+        document.getElementById('category-input').value = '';
         document.getElementById('priority-input').value = '';
         document.getElementById('due-date-input').value = '';
         if (document.getElementById('due-time-input')) {
