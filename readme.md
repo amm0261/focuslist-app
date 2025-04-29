@@ -26,7 +26,7 @@ FocusList is a minimalist, mobile-first task management app built for the COMP59
 
 ## Deployment
 
-View the app live at: [https://amm0261.github.io/focuslist-app/](https://amm0261.github.io/focuslist-app/)
+[https://amm0261.github.io/focuslist-app/](https://amm0261.github.io/focuslist-app/)
 
 ## Author
 Aidan Miller, amm0261@auburn.edu
