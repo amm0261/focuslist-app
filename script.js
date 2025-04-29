@@ -81,17 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   
-    window.toggleTask = (index) => {
-      tasks[index].completed = !tasks[index].completed;
-      saveTasks();
-      renderTasks();
-    };
-  
-    window.deleteTask = (index) => {
-      tasks.splice(index, 1);
-      saveTasks();
-      renderTasks();
-    };
   
     renderTasks();
   });
