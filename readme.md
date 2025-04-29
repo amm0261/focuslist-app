@@ -30,4 +30,3 @@ View the app live at: [https://amm0261.github.io/focuslist-app/](https://amm0261
 
 ## Author
 Aidan Miller, amm0261@auburn.edu
-04/29/2025
