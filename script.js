@@ -91,6 +91,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         saveTasks();
         renderTasks();
+        const categoryInput = document.getElementById('category-input');
+        const categoryList = document.getElementById('category-options');
+        const existingCategories = Array.from(categoryList.options).map(opt => opt.value);
+
+        if (category && !existingCategories.includes(category)) {
+          const newOption = document.createElement('option');
+          newOption.value = category;
+          categoryList.appendChild(newOption);
+        }
         taskInput.value = '';
       }
     });
