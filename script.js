@@ -11,7 +11,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   
     function renderTasks() {
-        taskList.innerHTML = '';
+        taskText.innerHTML = `
+        <strong>${task.text}</strong><br/>
+        <small class="text-muted">
+            ${task.category ? `Category: ${task.category} | ` : ''}
+            ${task.priority ? `Priority: ${task.priority} | ` : ''}
+            ${task.dueDate ? `Due: ${task.dueDate}` : ''}
+        </small>
+        `;
         tasks.forEach((task, index) => {
           const item = document.createElement('div');
           item.className = 'list-group-item d-flex justify-content-between align-items-center';
@@ -37,8 +44,17 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const text = taskInput.value.trim();
-      if (text) {
-        tasks.push({ text, completed: false });
+        const category = document.getElementById('category-input').value;
+        const priority = document.getElementById('priority-input').value;
+        const dueDate = document.getElementById('due-date-input').value;
+        if (text) {
+        tasks.push({
+            text,
+            category,
+            priority,
+            dueDate,
+            completed: false
+        });
         saveTasks();
         renderTasks();
         taskInput.value = '';
